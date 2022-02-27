@@ -6,6 +6,7 @@ import eu.kanade.tachiyomi.databinding.MigrationSourceItemBinding
 import eu.kanade.tachiyomi.source.icon
 import eu.kanade.tachiyomi.source.online.HttpSource
 import eu.kanade.tachiyomi.ui.base.holder.BaseFlexibleViewHolder
+import java.util.*
 
 class MigrationSourceHolder(view: View, val adapter: MigrationSourceAdapter) :
     BaseFlexibleViewHolder(view, adapter) {
@@ -17,7 +18,11 @@ class MigrationSourceHolder(view: View, val adapter: MigrationSourceAdapter) :
 
     fun bind(source: HttpSource, sourceEnabled: Boolean) {
         // Set capitalized title.
-        val sourceName = if (adapter.isMultiLanguage) source.toString() else source.name.capitalize()
+        val sourceName = if (adapter.isMultiLanguage) source.toString() else source.name.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
+        }
         binding.title.text = sourceName
         // Update circle letter image.
         itemView.post {
