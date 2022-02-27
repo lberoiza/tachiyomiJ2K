@@ -102,11 +102,7 @@ class MigrationBottomSheetDialog(
 
         binding.extraSearchParamText.isVisible = false
         binding.extraSearchParam.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                binding.extraSearchParamText.isVisible = true
-            } else {
-                binding.extraSearchParamText.isVisible = false
-            }
+            binding.extraSearchParamText.isVisible = isChecked
         }
         binding.sourceGroup.bindToPreference(preferences.useSourceWithMost())
 
